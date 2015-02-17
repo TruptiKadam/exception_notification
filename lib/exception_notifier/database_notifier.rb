@@ -1,7 +1,7 @@
 require 'action_dispatch'
 
 module ExceptionNotifier
-  class WebhookNotifier
+  class DatabaseNotifier
 
     def initialize(options)
       @default_options = options
@@ -27,7 +27,6 @@ module ExceptionNotifier
 
       unless env.nil?
         request = ActionDispatch::Request.new(env)
-
         request_items = {:url => request.original_url,
                          :http_method => request.method,
                          :ip_address => request.remote_ip,
@@ -38,8 +37,9 @@ module ExceptionNotifier
         options[:body][:session] = request.session
         options[:body][:environment] = request.filtered_env
       end
-
-      HTTParty.send(http_method, url, options)
+      
+      ErrorNotifier.create(:data => options)
+      #HTTParty.send(http_method, url, options)
     end
   end
 end
