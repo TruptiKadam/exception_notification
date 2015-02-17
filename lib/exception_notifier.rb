@@ -11,6 +11,7 @@ module ExceptionNotifier
   autoload :WebhookNotifier, 'exception_notifier/webhook_notifier'
   autoload :IrcNotifier, 'exception_notifier/irc_notifier'
   autoload :SlackNotifier, 'exception_notifier/slack_notifier'
+  autoload :DatabaseNotifier, 'exception_notifier/database_notifier'
 
   class UndefinedNotifierError < StandardError; end
 
